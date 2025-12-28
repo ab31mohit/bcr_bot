@@ -11,7 +11,9 @@ install( DIRECTORY config/
          DESTINATION share/${PROJECT_NAME}/config)
          
          
-install(PROGRAMS scripts/remapper.py
-        DESTINATION lib/${PROJECT_NAME})
+install(PROGRAMS 
+    scripts/remapper.py
+    scripts/teleop_keyboard.py
+    DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
