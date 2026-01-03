@@ -51,18 +51,12 @@ RUN apt-get install --no-install-recommends -yqq \
     ros-$ROS_DISTRO-nav2-bringup
 
 # Using shell to use bash commands like 'source'
-SHELL ["/bin/bash", "-c"]
+SHELL ["/usr/bash", "-c"]
 
 # Target workspace for ROS2 packages
 ARG WORKSPACE=/root/ros2_ws
 
 # Add target workspace in environment
 ENV WORKSPACE=$WORKSPACE
-
-# Create workspace structure
-RUN mkdir -p ${WORKSPACE}/src
-
-# Source ROS automatically
-RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> /root/.bashrc
 
 WORKDIR $WORKSPACE

@@ -9,11 +9,15 @@ install(DIRECTORY launch meshes models urdf worlds rviz
 
 install( DIRECTORY config/
          DESTINATION share/${PROJECT_NAME}/config)
+
+install( DIRECTORY graphs/
+         DESTINATION share/${PROJECT_NAME}/graphs)
          
          
 install(PROGRAMS 
     scripts/remapper.py
     scripts/teleop_keyboard.py
+    scripts/route_graph.py
     DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
