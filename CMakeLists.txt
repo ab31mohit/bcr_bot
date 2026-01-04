@@ -18,6 +18,8 @@ install(PROGRAMS
     scripts/remapper.py
     scripts/teleop_keyboard.py
     scripts/route_graph.py
+    scripts/route_navigator.py
+    scripts/follow_route.py
     DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
