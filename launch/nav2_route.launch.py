@@ -3,7 +3,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.descriptions import ParameterFile
 from nav2_common.launch import RewrittenYaml
@@ -14,35 +14,33 @@ def generate_launch_description():
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='True')
     autostart = LaunchConfiguration('autostart', default='True')
-
-    route_params_file = LaunchConfiguration('route_params_file')
-    route_graph_file = LaunchConfiguration('route_graph_file')     # Absolute path to the .geojson graph file
-
-    declare_route_params_cmd = DeclareLaunchArgument(
-        'route_params_file',
-        default_value=os.path.join(pkg_bcr, 'config', 'nav2_route.yaml'),
-        description='Nav2 parameters file for route server'
-    )
-
-    declare_route_graph_cmd = DeclareLaunchArgument(
-        'route_graph_file',
-        default_value=os.path.join(pkg_bcr, 'graphs', 'route_graph.geojson'),
-        description='Route graph GeoJSON file for route server'
-    )
+    graph_file = LaunchConfiguration('graph_file')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
         'use_sim_time',
         default_value='true',
     )
 
+    declare_graph_file_cmd = DeclareLaunchArgument(
+        'graph_file',
+        default_value='bcr_demo_inspection.geojson',
+        description='Route graph GeoJSON file'
+    )
+
+    graph_filepath = PathJoinSubstitution([
+        pkg_bcr,
+        'graphs',
+        graph_file
+    ])
+
     # Rewrite YAML to inject runtime values (graph_filepath, use_sim_time)
     configured_params = ParameterFile(
         RewrittenYaml(
-            source_file=route_params_file,
+            source_file=os.path.join(pkg_bcr, 'config', 'nav2_route.yaml'),
             root_key='',
             param_rewrites={
                 'use_sim_time': use_sim_time,
-                'graph_filepath': route_graph_file
+                'graph_filepath': graph_filepath
             },
             convert_types=True
         ),
@@ -58,7 +56,7 @@ def generate_launch_description():
             'use_sim_time': use_sim_time,
             'autostart': autostart,
             'map': os.path.join(pkg_bcr, 'config', 'bcr_map.yaml'),
-            'params_file': os.path.join(pkg_bcr, 'config', 'nav2_params.yaml'),
+            'params_file': os.path.join(pkg_bcr, 'config', 'nav2_route.yaml'),
             'package_path': pkg_bcr, 
         }.items()
     )
@@ -69,28 +67,11 @@ def generate_launch_description():
         name="rviz2",
         arguments=[
             '-d' + os.path.join(
-                # get_package_share_directory('nav2_bringup'),
                 get_package_share_directory('bcr_bot'),
                 'rviz',
-                'nav2_new.rviz'
+                'route_navigation.rviz'
             )
         ]
-    )
-    
-    amcl_node = Node(
-        package='nav2_amcl',
-        executable='amcl',
-        name='amcl',
-        output='screen',
-        parameters=[os.path.join(pkg_bcr, 'config', 'amcl_params.yaml')],
-    )
-
-    map_server_node = Node(
-        package='nav2_map_server',
-        executable='map_server',
-        name='map_server',
-        output='screen',
-        parameters=[{'yaml_filename': os.path.join(pkg_bcr, 'config', 'bcr_map.yaml')}],
     )
 
     static_transform_publisher_node = Node(
@@ -103,9 +84,13 @@ def generate_launch_description():
 
     remapper_node = Node(
         package='bcr_bot',
-        executable='remapper.py',
-        name='remapper',
+        executable='cmd_vel_remapper.py',
+        name='cmd_vel_remapper',
         output='screen',
+        parameters=[ {
+                    'input_cmd_vel_topic': 'cmd_vel_collision',
+                    'output_cmd_vel_topic': '/bcr_bot/cmd_vel'
+        }]
     )
 
     route_server_node = Node(
@@ -116,7 +101,18 @@ def generate_launch_description():
         parameters=[configured_params]   # passing the rewritten params to resolve geojson file path
     )
 
-    route_lifecycle_mgr_node = Node(
+    collision_monitor_node = Node(
+        package='nav2_collision_monitor',
+        executable='collision_monitor',
+        name='collision_monitor',
+        output='screen',
+            parameters=[
+                os.path.join(pkg_bcr, 'config', 'nav2_route.yaml'),
+                {'use_sim_time': use_sim_time}
+            ],
+    )
+
+    route_lifecycle_manager_node = Node(
         package='nav2_lifecycle_manager',
         executable='lifecycle_manager',
         name='route_lifecycle_manager',
@@ -125,7 +121,7 @@ def generate_launch_description():
             {
                 'use_sim_time': use_sim_time,
                 'autostart': True,
-                'node_names': ['route_server']
+                'node_names': ['route_server', 'collision_monitor']
             }
         ]
     )
@@ -134,15 +130,13 @@ def generate_launch_description():
 
     ld.add_action(nav2_launch_cmd)
     ld.add_action(rviz_launch_cmd)
-    ld.add_action(amcl_node)
-    ld.add_action(map_server_node)
+    ld.add_action(declare_use_sim_time_cmd)
+    ld.add_action(declare_graph_file_cmd)
     ld.add_action(static_transform_publisher_node)
     ld.add_action(remapper_node)
-    ld.add_action(declare_route_params_cmd)
-    ld.add_action(declare_route_graph_cmd)
-    ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(route_server_node)
-    ld.add_action(route_lifecycle_mgr_node)
+    ld.add_action(collision_monitor_node)
+    ld.add_action(route_lifecycle_manager_node)
 
     return ld
 

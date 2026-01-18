@@ -17,9 +17,11 @@ install( DIRECTORY graphs/
 install(PROGRAMS 
     scripts/remapper.py
     scripts/teleop_keyboard.py
+    scripts/cmd_vel_remapper.py
     scripts/route_graph.py
     scripts/route_navigator.py
-    scripts/follow_route.py
+    scripts/follow_route_node.py
+    scripts/demo_inspection.py
     DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

@@ -16,20 +16,26 @@ class RouteGraphBuilder(Node):
     def __init__(self):
         super().__init__('route_graph_builder_node')
 
-        # Parameters
+        # ---------------- Parameters ----------------
         self.declare_parameter('graph_file', 'route_graph.geojson')
-        graph_file = self.get_parameter('graph_file').get_parameter_value().string_value
+        self.declare_parameter('direction', 'unidirectional')  # unidirectional | bidirectional
 
-        # Namespace info
-        self.robot_ns = ''
+        self.graph_file = self.get_parameter('graph_file').value
+        self.direction = self.get_parameter('direction').value.lower()
 
-        # Output path
+        if self.direction not in ['unidirectional', 'bidirectional']:
+            self.get_logger().fatal("direction must be 'unidirectional' or 'bidirectional'")
+            raise RuntimeError("Invalid direction parameter")
+
+        # Namespace
+        self.robot_ns = self.get_namespace().strip('/')
+
+        # Output path (unchanged)
         self.output_dir = os.path.expanduser(
             "~/ros2_ws/src/bcr_bot/graphs"
         )
         os.makedirs(self.output_dir, exist_ok=True)
-
-        self.output_file = os.path.join(self.output_dir, graph_file)
+        self.output_file = os.path.join(self.output_dir, self.graph_file)
 
         # Internal state
         self.nodes = []
@@ -40,7 +46,7 @@ class RouteGraphBuilder(Node):
         self.edge_id = 100
         self.saved = False
 
-        # Subscriptions (from rviz2 click event)
+        # Subscriptions
         self.create_subscription(
             PointStamped,
             "/clicked_point",
@@ -48,7 +54,7 @@ class RouteGraphBuilder(Node):
             10
         )
 
-        # Publishers (namespaced)
+        # Publishers
         self.marker_pub = self.create_publisher(
             MarkerArray,
             "route_graph/marker_array",
@@ -61,23 +67,20 @@ class RouteGraphBuilder(Node):
             10
         )
 
-        # Logs
         self.get_logger().info("Route Graph Builder started")
-        self.get_logger().info(f"Robot namespace: '{self.robot_ns or '/'}'")
         self.get_logger().info(f"Graph file: {self.output_file}")
-        self.get_logger().info("Click points in RViz (Publish Point)")
-        self.get_logger().info("Press Ctrl+C to save")
+        self.get_logger().info(f"Direction mode: {self.direction}")
 
     # --------------------------------------------------
 
     def clicked_point_cb(self, msg: PointStamped):
-        x = msg.point.x
-        y = msg.point.y
+        x = round(msg.point.x, 3)
+        y = round(msg.point.y, 3)
 
         nid = self.node_id
         self.node_id += 1
 
-        # GeoJSON node
+        # ---- Node ----
         self.nodes.append({
             "type": "Feature",
             "geometry": {
@@ -90,25 +93,19 @@ class RouteGraphBuilder(Node):
             }
         })
 
-        # Sequential edge
+        # ---- Edge(s) ----
         if nid > 0:
-            self.edges.append({
-                "type": "Feature",
-                "geometry": {
-                    "type": "MultiLineString",
-                    "coordinates": []
-                },
-                "properties": {
-                    "id": self.edge_id,
-                    "startid": nid - 1,
-                    "endid": nid,
-                    "cost": 0.0,
-                    "overridable": True
-                }
-            })
-            self.edge_id += 1
+            prev = self.nodes[nid - 1]["geometry"]["coordinates"]
+            curr = [x, y]
 
-        # Path pose
+            # Forward edge
+            self.add_edge(nid - 1, nid, prev, curr)
+
+            # Reverse edge (if bidirectional)
+            if self.direction == "bidirectional":
+                self.add_edge(nid, nid - 1, curr, prev)
+
+        # ---- Path ----
         pose = PoseStamped()
         pose.header.frame_id = "map"
         pose.pose.position.x = x
@@ -119,9 +116,26 @@ class RouteGraphBuilder(Node):
         self.publish_markers()
         self.publish_path()
 
-        self.get_logger().info(
-            f"[{self.robot_ns or '/'}] Added waypoint {nid} at ({x:.2f}, {y:.2f})"
-        )
+        self.get_logger().info(f"Added node {nid} at ({x}, {y})")
+
+    # --------------------------------------------------
+
+    def add_edge(self, startid, endid, start_xy, end_xy):
+        self.edges.append({
+            "type": "Feature",
+            "geometry": {
+                "type": "MultiLineString",
+                "coordinates": [[start_xy, end_xy]]
+            },
+            "properties": {
+                "id": self.edge_id,
+                "startid": startid,
+                "endid": endid,
+                "cost": 0.0,
+                "overridable": True
+            }
+        })
+        self.edge_id += 1
 
     # --------------------------------------------------
 
@@ -136,12 +150,8 @@ class RouteGraphBuilder(Node):
             m.type = Marker.SPHERE
             m.action = Marker.ADD
             m.pose = pose.pose
-            m.scale.x = 0.25
-            m.scale.y = 0.25
-            m.scale.z = 0.25
+            m.scale.x = m.scale.y = m.scale.z = 0.25
             m.color.r = 1.0
-            m.color.g = 0.0
-            m.color.b = 0.0
             m.color.a = 1.0
             ma.markers.append(m)
 
@@ -162,7 +172,7 @@ class RouteGraphBuilder(Node):
             return
 
         if not self.nodes:
-            self.get_logger().warn("No waypoints collected. Nothing to save.")
+            self.get_logger().warn("No nodes created. Nothing to save.")
             return
 
         geojson = {
@@ -175,8 +185,13 @@ class RouteGraphBuilder(Node):
             json.dump(geojson, f, indent=2)
 
         self.saved = True
-        self.get_logger().info(f"Saved route graph to:\n{self.output_file}")
 
+        print("========== Route Graph Saved ==========")
+        print(f"File      : {self.output_file}")
+        print(f"Nodes     : {len(self.nodes)}")
+        print(f"Edges     : {len(self.edges)}")
+        print(f"Direction : {self.direction}")
+        print("======================================")
 
 def main():
     rclpy.init()
@@ -184,12 +199,15 @@ def main():
 
     try:
         rclpy.spin(node)
+
     except KeyboardInterrupt:
-        node.get_logger().info("Ctrl+C pressed")
+        print("\nCtrl+C detected. Shutting down cleanly...")
+
     finally:
         node.save_geojson()
-        node.destroy_node()
-        rclpy.shutdown()
+        # commented as they were giving warnings on (ctrl + c) shutdown.
+        # node.destroy_node()
+        # rclpy.shutdown()
 
 
 if __name__ == "__main__":

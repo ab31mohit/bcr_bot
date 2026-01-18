@@ -1,0 +1,354 @@
+{
+  "type": "FeatureCollection",
+  "name": "graph",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.037,
+          -0.009
+        ]
+      },
+      "properties": {
+        "id": 0,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.396,
+          -0.016
+        ]
+      },
+      "properties": {
+        "id": 1,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.466,
+          -4.048
+        ]
+      },
+      "properties": {
+        "id": 2,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.469,
+          -9.438
+        ]
+      },
+      "properties": {
+        "id": 3,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.774,
+          -9.531
+        ]
+      },
+      "properties": {
+        "id": 4,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -3.381,
+          -5.531
+        ]
+      },
+      "properties": {
+        "id": 5,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.114,
+          -3.273
+        ]
+      },
+      "properties": {
+        "id": 6,
+        "frame": "map"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              0.037,
+              -0.009
+            ],
+            [
+              1.396,
+              -0.016
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 100,
+        "startid": 0,
+        "endid": 1,
+        "cost": 0.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              1.396,
+              -0.016
+            ],
+            [
+              0.037,
+              -0.009
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 101,
+        "startid": 1,
+        "endid": 0,
+        "cost": 0.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              1.396,
+              -0.016
+            ],
+            [
+              1.466,
+              -4.048
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 102,
+        "startid": 1,
+        "endid": 2,
+        "cost": 0.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              1.466,
+              -4.048
+            ],
+            [
+              1.396,
+              -0.016
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 103,
+        "startid": 2,
+        "endid": 1,
+        "cost": 0.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              1.466,
+              -4.048
+            ],
+            [
+              1.469,
+              -9.438
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 104,
+        "startid": 2,
+        "endid": 3,
+        "cost": 0.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              1.469,
+              -9.438
+            ],
+            [
+              1.466,
+              -4.048
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 105,
+        "startid": 3,
+        "endid": 2,
+        "cost": 0.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              1.469,
+              -9.438
+            ],
+            [
+              -3.774,
+              -9.531
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 106,
+        "startid": 3,
+        "endid": 4,
+        "cost": 0.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.774,
+              -9.531
+            ],
+            [
+              -3.381,
+              -5.531
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 107,
+        "startid": 4,
+        "endid": 5,
+        "cost": 0.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -3.381,
+              -5.531
+            ],
+            [
+              -1.114,
+              -3.273
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 108,
+        "startid": 5,
+        "endid": 6,
+        "cost": 0.0,
+        "overridable": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "MultiLineString",
+        "coordinates": [
+          [
+            [
+              -1.114,
+              -3.273
+            ],
+            [
+              1.469,
+              -9.438
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "id": 109,
+        "startid": 6,
+        "endid": 3,
+        "cost": 0.0,
+        "overridable": true
+      }
+    }
+  ]
+}

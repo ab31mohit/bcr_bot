@@ -38,87 +38,95 @@ rosdep install --from-paths src --ignore-src -r -y
 colcon build --packages-select bcr_bot
 ```
 
-### Run
+## Bringup & Navigation
 
-To launch the robot in Gazebo,
-```bash
-ros2 launch bcr_bot gz.launch.py
-```
-To view in rviz,
-```bash
-ros2 launch bcr_bot rviz.launch.py
-```
+### 1. Start robot simulation
 
-### Configuration
+- The launch file accepts multiple launch arguments
 
-The launch file accepts multiple launch arguments,
-```bash
-ros2 launch bcr_bot gz.launch.py \
-    camera_enabled:=True \
-    stereo_camera_enabled:=False \
-    two_d_lidar_enabled:=True \
-    position_x:=0.0 \
-    position_y:=0.0  \
-    orientation_yaw:=0.0 \
-    odometry_source:=world \
-    world_file:=small_warehouse.sdf
-```
-**Note:** 
-1. To use stereo_image_proc with the stereo images excute following command: 
-```bash
-ros2 launch stereo_image_proc stereo_image_proc.launch.py left_namespace:=bcr_bot/stereo_camera/left right_namespace:=bcr_bot/stereo_camera/right
-```
-2. Harmonic support is not available in the bcr_bot binaries yet.
+    ```bash
+    ros2 launch bcr_bot gz.launch.py \
+        camera_enabled:=True \
+        stereo_camera_enabled:=False \
+        two_d_lidar_enabled:=True \
+        position_x:=0.0 \
+        position_y:=0.0  \
+        orientation_yaw:=0.0 \
+        odometry_source:=world \
+        world_file:=small_warehouse.sdf
+    ```
 
-**Warning:**  `gz-harmonic` cannot be installed alongside gazebo-classic (eg. gazebo11) since both use the `gz` command line tool.
+    ![small_warehouse World](res/gz.jpg)
 
-### Mapping with SLAM Toolbox
-
-SLAM Toolbox is an open-source package designed to map the environment using laser scans and odometry, generating a map for autonomous navigation.
-
-NOTE: The command to run mapping is common between all versions of gazebo.
-
-To start mapping:
-```bash
-ros2 launch bcr_bot mapping.launch.py
-```
-
-Use the teleop twist keyboard to control the robot and map the area:
-```bash
-ros2 run teleop_twist_keyboard teleop_twist_keyboard cmd_vel:=/bcr_bot/cmd_vel
-```
-
-To save the map:
-```bash
-cd src/bcr_bot/config
-ros2 run nav2_map_server map_saver_cli -f bcr_map
-```
-
-### Using Nav2 with bcr_bot
+### 2. Localization & navigation
 
 Nav2 is an open-source navigation package that enables a robot to navigate through an environment easily. It takes laser scan and odometry data, along with the map of the environment, as inputs.
 
-To run Nav2 on bcr_bot:
-```bash
-ros2 launch bcr_bot nav2.launch.py
-```
+1. For running free space (spatial) navigation :   
 
-To run NAV2 with an existing route graph (.geojson file) for a specific path following : 
-```bash
-ros2 launch bcr_bot nav2_new.launch.py
-```
+    ```bash
+    ros2 launch bcr_bot nav2.launch.py
+    ```   
 
-For creating a route graph, run the [nav2.launch.py](launch/nav2.launch.py) and then run  
-```bash
-ros2 run bcr_bot route_graph.py graph_file:=test.geojson
-```  
+    This will start localization, planners & navigation.   
+    We can pass 2D Nav goal from rviz and then robot will plan & navigate on itsef.   
 
-### Simulation and Visualization
-1. Gz Sim (Ignition Gazebo) (small_warehouse World):
-    ![](res/gz.jpg)
+- For running route graph based navigation :  
 
-2. Isaac Sim:
-    ![](res/isaac.jpg) 
+    ```bash
+    ros2 launch bcr_bot nav2_route.launch.py graph_file:=bcr1.geojson
+    ```   
 
-3. Rviz (Depth camera) (small_warehouse World):
-    ![](res/rviz.jpg)
+    This launch file contains the same structure of the original [nav2.launch.py](launch/nav2.launch.py) with addition to route_server & collision_monitor.   
+
+- For building a custom route graph run :  
+
+    ```bash
+    ros2 launch bcr_bot route_localization.launch.py rviz_file:=route_graph.rviz
+    ```   
+
+    This will launch the localization file and publish map (considdering bringup is already running).   
+    Then we can run the route graph launch file for building the graph :  
+
+    ```bash
+    ros2 launch bcr_bot route_graph.launch.py graph_file:=my_graph.geojson direction:=unidirectional
+    ```    
+    then use the **publish point** button rviz2 screen to create nodes on the graph and then when you're done, press `ctrl +  c` to exit the node.   
+
+- For using only the minimal code for localization & route navigation run :  
+
+    ```bash
+    ros2 launch bcr_bot route_localization.launch.py
+    ```   
+    This will start the localization on a predefined map file in rviz.    
+
+    Now run the route navigation :    
+
+    ```bash
+    ros2 launch bcr_bot route_navigation.launch.py graph_file:=demo_inspection.geojson
+    ```   
+
+    This will launch the route navigation nodes with custom route graph.    
+
+- For route navigation there are 2 options :  
+
+    1. Goal id based single route navigation mission   
+
+        ```bash
+        ros2 launch bcr_bot follow_route_node.launch.py start_node:=0 goal_node:=6
+        ```    
+        This will take only one pair of (start,goal) node ids of the route graph and then reach the goal node along the calculated path on the graph with collision monitor (stop when obstacle come in front of it).   
+
+    2. Looping of route graph navigation :  
+
+        ```bash
+        ros2 run bcr_bot demo_inspection.py
+        ```    
+        this uses a node_array type node id based array for specifying which nodes to follow one after the other.  
+          
+    ---
+    **NOTE:**   
+    The current issue in [follow_route_node.py](scripts/follow_route_node.py) & [demo_inspection.py](scripts/demo_inspection.py) files is that when an obstacle come in front of the robot, the route navigation collapses and only the current goal is reached. 
+
+
+

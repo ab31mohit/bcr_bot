@@ -64,10 +64,10 @@ class RobotRouteNavigator(Node):
 
         # ---- Lifecycle check clients ----
         self._route_state_client = self.create_client(
-            GetState, '/route_server/get_state'
+            GetState, 'route_server/get_state'
         )
         self._controller_state_client = self.create_client(
-            GetState, '/controller_server/get_state'
+            GetState, 'controller_server/get_state'
         )
 
         # ---- Internal state ----
