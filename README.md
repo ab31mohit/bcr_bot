@@ -62,71 +62,74 @@ colcon build --packages-select bcr_bot
 
 Nav2 is an open-source navigation package that enables a robot to navigate through an environment easily. It takes laser scan and odometry data, along with the map of the environment, as inputs.
 
-1. For running free space (spatial) navigation :   
+### 1. For running free space (spatial) navigation :   
+
+```bash
+ros2 launch bcr_bot nav2.launch.py
+```   
+
+This will start localization, planners & navigation.   
+We can pass 2D Nav goal from rviz and then robot will plan & navigate on itsef.   
+
+### 2. For running route graph based navigation :  
+
+```bash
+ros2 launch bcr_bot nav2_route.launch.py graph_file:=bcr1.geojson
+```   
+
+This launch file contains the same structure of the original [nav2.launch.py](launch/nav2.launch.py) with addition to route_server & collision_monitor.   
+
+### 3. For building a custom route graph run :  
+
+```bash
+ros2 launch bcr_bot route_localization.launch.py rviz_file:=route_graph.rviz
+```   
+
+This will launch the localization file and publish map (considdering bringup is already running).   
+Then we can run the route graph launch file for building the graph :  
+
+```bash
+ros2 launch bcr_bot route_graph.launch.py graph_file:=my_graph.geojson direction:=unidirectional
+```    
+then use the **publish point** button rviz2 screen to create nodes on the graph and then when you're done, press `ctrl +  c` to exit the node.   
+
+### 4. For using only the minimal code for localization & route navigation run :  
+
+```bash
+ros2 launch bcr_bot route_localization.launch.py
+```     
+
+This will start the localization on a predefined map file in rviz.    
+
+Now run the route navigation :    
+
+```bash
+ros2 launch bcr_bot route_navigation.launch.py graph_file:=demo_inspection.geojson
+```   
+
+This will launch the route navigation nodes with custom route graph.    
+
+### 5. For route navigation there are 2 options :  
+
+1. Goal id based single route navigation mission   
 
     ```bash
-    ros2 launch bcr_bot nav2.launch.py
-    ```   
-
-    This will start localization, planners & navigation.   
-    We can pass 2D Nav goal from rviz and then robot will plan & navigate on itsef.   
-
-- For running route graph based navigation :  
-
-    ```bash
-    ros2 launch bcr_bot nav2_route.launch.py graph_file:=bcr1.geojson
-    ```   
-
-    This launch file contains the same structure of the original [nav2.launch.py](launch/nav2.launch.py) with addition to route_server & collision_monitor.   
-
-- For building a custom route graph run :  
-
-    ```bash
-    ros2 launch bcr_bot route_localization.launch.py rviz_file:=route_graph.rviz
-    ```   
-
-    This will launch the localization file and publish map (considdering bringup is already running).   
-    Then we can run the route graph launch file for building the graph :  
-
-    ```bash
-    ros2 launch bcr_bot route_graph.launch.py graph_file:=my_graph.geojson direction:=unidirectional
+    ros2 launch bcr_bot follow_route_node.launch.py start_node:=0 goal_node:=6
     ```    
-    then use the **publish point** button rviz2 screen to create nodes on the graph and then when you're done, press `ctrl +  c` to exit the node.   
+    This will take only one pair of (start,goal) node ids of the route graph and then reach the goal node along the calculated path on the graph with collision monitor (stop when obstacle come in front of it).   
 
-- For using only the minimal code for localization & route navigation run :  
-
-    ```bash
-    ros2 launch bcr_bot route_localization.launch.py
-    ```   
-    This will start the localization on a predefined map file in rviz.    
-
-    Now run the route navigation :    
+2. Looping of route graph navigation :  
 
     ```bash
-    ros2 launch bcr_bot route_navigation.launch.py graph_file:=demo_inspection.geojson
-    ```   
+    ros2 run bcr_bot demo_inspection.py
+    ```    
+    this uses a node_array type node id based array for specifying which nodes to follow one after the other.    
 
-    This will launch the route navigation nodes with custom route graph.    
+    ![](demo_inspection_result/rviz.png)   
 
-- For route navigation there are 2 options :  
-
-    1. Goal id based single route navigation mission   
-
-        ```bash
-        ros2 launch bcr_bot follow_route_node.launch.py start_node:=0 goal_node:=6
-        ```    
-        This will take only one pair of (start,goal) node ids of the route graph and then reach the goal node along the calculated path on the graph with collision monitor (stop when obstacle come in front of it).   
-
-    2. Looping of route graph navigation :  
-
-        ```bash
-        ros2 run bcr_bot demo_inspection.py
-        ```    
-        this uses a node_array type node id based array for specifying which nodes to follow one after the other.  
+    The demo inspection nodes loops through the [2,3,4,5,6] node section 2 times.   
+    The logs of navigation servers are saved in [route_navigation_launch_file.log](demo_inspection_result/route_navigation_launch_file.log).    
+    The logs of demo inspection node are saved in [demo_inspection_node.log](demo_inspection_result/demo_inspection_node.log).   
+    The corresponding ros2 environment information is saved in [rqt.png](demo_inspection_result/rqt.png).  
           
     ---
-    **NOTE:**   
-    The current issue in [follow_route_node.py](scripts/follow_route_node.py) & [demo_inspection.py](scripts/demo_inspection.py) files is that when an obstacle come in front of the robot, the route navigation collapses and only the current goal is reached. 
-
-
-

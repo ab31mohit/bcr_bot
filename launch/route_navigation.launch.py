@@ -26,7 +26,7 @@ def generate_launch_description():
 
     declare_graph_file = DeclareLaunchArgument(
         'graph_file',
-        default_value='bcr_demo_inspection.geojson',
+        default_value='demo_inspection.geojson',
         description='Route graph GeoJSON file'
     )
 
@@ -53,7 +53,7 @@ def generate_launch_description():
                 {'use_sim_time': use_sim_time}
             ],
             remappings=[
-                ('cmd_vel', 'cmd_vel_nav')
+                ('cmd_vel', 'cmd_vel_nav')       # this velocity topic will be input for the velocity_smoother
             ]
         ),
 
@@ -67,8 +67,7 @@ def generate_launch_description():
                 {'use_sim_time': use_sim_time}
             ],
             remappings=[
-                ('cmd_vel', 'cmd_vel_nav'), 
-                ('cmd_vel_smoothed', 'cmd_vel')
+                ('cmd_vel', 'cmd_vel_nav')       # input velocity topic to filter (output is cmd_vel_smoothed)
             ]
         ),
 
@@ -121,8 +120,8 @@ def generate_launch_description():
             name='cmd_vel_remapper',
             output='screen',
             parameters=[ {
-                    'input_cmd_vel_topic': 'cmd_vel_collision',
-                    'output_cmd_vel_topic': '/bcr_bot/cmd_vel'
+                    'cmd_vel_topic_in': 'cmd_vel',
+                    'cmd_vel_topic_out': '/bcr_bot/cmd_vel'
             }]
         ),
 

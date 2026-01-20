@@ -1,0 +1,191 @@
+root@HP-360:~/ros2_ws# ros2 launch bcr_bot route_navigation.launch.py
+[INFO] [launch]: All log files can be found below /root/.ros/log/2026-01-20-15-25-08-566751-HP-360-39914
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [controller_server-1]: process started with pid [39922]
+[INFO] [velocity_smoother-2]: process started with pid [39924]
+[INFO] [route_server-3]: process started with pid [39926]
+[INFO] [collision_monitor-4]: process started with pid [39928]
+[INFO] [planner_server-5]: process started with pid [39930]
+[INFO] [smoother_server-6]: process started with pid [39932]
+[INFO] [cmd_vel_remapper.py-7]: process started with pid [39934]
+[INFO] [lifecycle_manager-8]: process started with pid [39936]
+[velocity_smoother-2] [INFO] [1768922708.861321432] [velocity_smoother]: 
+[velocity_smoother-2]   velocity_smoother lifecycle node launched. 
+[velocity_smoother-2]   Waiting on external lifecycle transitions to activate
+[velocity_smoother-2]   See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[smoother_server-6] [INFO] [1768922709.150580003] [smoother_server]: 
+[smoother_server-6]     smoother_server lifecycle node launched. 
+[smoother_server-6]     Waiting on external lifecycle transitions to activate
+[smoother_server-6]     See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[smoother_server-6] [INFO] [1768922709.154544641] [smoother_server]: Creating smoother server
+[lifecycle_manager-8] [INFO] [1768922709.159770502] [lifecycle_manager_navigation]: Creating
+[collision_monitor-4] [INFO] [1768922709.169950601] [collision_monitor]: 
+[collision_monitor-4]   collision_monitor lifecycle node launched. 
+[collision_monitor-4]   Waiting on external lifecycle transitions to activate
+[collision_monitor-4]   See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[lifecycle_manager-8] [INFO] [1768922709.189185474] [lifecycle_manager_navigation]: Creating and initializing lifecycle service clients
+[controller_server-1] [INFO] [1768922709.200301895] [controller_server]: 
+[controller_server-1]   controller_server lifecycle node launched. 
+[controller_server-1]   Waiting on external lifecycle transitions to activate
+[controller_server-1]   See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[route_server-3] [INFO] [1768922709.226872316] [route_server]: 
+[route_server-3]        route_server lifecycle node launched. 
+[route_server-3]        Waiting on external lifecycle transitions to activate
+[route_server-3]        See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-5] [INFO] [1768922709.276644412] [planner_server]: 
+[planner_server-5]      planner_server lifecycle node launched. 
+[planner_server-5]      Waiting on external lifecycle transitions to activate
+[planner_server-5]      See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-5] [INFO] [1768922709.285787290] [planner_server]: Creating
+[controller_server-1] [INFO] [1768922709.291199351] [controller_server]: Creating controller server
+[cmd_vel_remapper.py-7] [INFO] [1768922709.409380350] [cmd_vel_remapper]: Subscribing to: cmd_vel
+[cmd_vel_remapper.py-7] [INFO] [1768922709.410410227] [cmd_vel_remapper]: Publishing to:  /bcr_bot/cmd_vel
+[controller_server-1] [INFO] [1768922709.498731087] [local_costmap.local_costmap]: 
+[controller_server-1]   local_costmap lifecycle node launched. 
+[controller_server-1]   Waiting on external lifecycle transitions to activate
+[controller_server-1]   See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-1] [INFO] [1768922709.505499198] [local_costmap.local_costmap]: Creating Costmap
+[planner_server-5] [INFO] [1768922709.505799924] [global_costmap.global_costmap]: 
+[planner_server-5]      global_costmap lifecycle node launched. 
+[planner_server-5]      Waiting on external lifecycle transitions to activate
+[planner_server-5]      See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-5] [INFO] [1768922709.515090941] [global_costmap.global_costmap]: Creating Costmap
+[lifecycle_manager-8] [INFO] [1768922709.612327692] [lifecycle_manager_navigation]: Starting managed nodes bringup...
+[lifecycle_manager-8] [INFO] [1768922709.612499846] [lifecycle_manager_navigation]: Configuring controller_server
+[controller_server-1] [INFO] [1768922709.613569728] [controller_server]: Configuring controller interface
+[controller_server-1] [INFO] [1768922709.614178774] [controller_server]: getting goal checker plugins..
+[controller_server-1] [INFO] [1768922709.614404609] [controller_server]: Controller frequency set to 20.0000Hz
+[controller_server-1] [INFO] [1768922709.614503044] [local_costmap.local_costmap]: Configuring
+[controller_server-1] [INFO] [1768922709.639546313] [local_costmap.local_costmap]: Using plugin "voxel_layer"
+[controller_server-1] [INFO] [1768922709.647488813] [local_costmap.local_costmap]: Subscribed to Topics: scan
+[controller_server-1] [INFO] [1768922709.664449107] [local_costmap.local_costmap]: Initialized plugin "voxel_layer"
+[controller_server-1] [INFO] [1768922709.664655335] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[controller_server-1] [INFO] [1768922709.668422862] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[controller_server-1] [INFO] [1768922709.710380789] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[controller_server-1] [INFO] [1768922709.715613993] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[controller_server-1] [INFO] [1768922709.716572556] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[controller_server-1] [INFO] [1768922709.718744111] [controller_server]: Created controller : FollowPath of type nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-1] [INFO] [1768922709.737465026] [controller_server]: Controller Server has FollowPath  controllers available.
+[lifecycle_manager-8] [INFO] [1768922709.797030875] [lifecycle_manager_navigation]: Configuring velocity_smoother
+[velocity_smoother-2] [INFO] [1768922709.798071152] [velocity_smoother]: Configuring velocity smoother
+[lifecycle_manager-8] [INFO] [1768922709.826415430] [lifecycle_manager_navigation]: Configuring route_server
+[route_server-3] [INFO] [1768922709.828072427] [route_server]: Configuring
+[route_server-3] [INFO] [1768922709.934742142] [route_server]: Created GraphFileLoader GeoJsonGraphFileLoader of type nav2_route::GeoJsonGraphFileLoader
+[route_server-3] [INFO] [1768922709.934865384] [route_server]: Configuring geojson graph file loader
+[route_server-3] [INFO] [1768922709.934885973] [route_server]: Loading graph file from /root/ros2_ws/install/bcr_bot/share/bcr_bot/graphs/route_graph.geojson, by parser nav2_route::GeoJsonGraphFileLoader
+[route_server-3] [INFO] [1768922709.938582837] [route_server]: Created edge cost function plugin DistanceScorer of type nav2_route::DistanceScorer
+[route_server-3] [INFO] [1768922709.938688356] [route_server]: Configuring distance scorer.
+[route_server-3] [INFO] [1768922709.939186823] [route_server]: Created edge cost function plugin CostmapScorer of type nav2_route::CostmapScorer
+[route_server-3] [INFO] [1768922709.939219184] [route_server]: Configuring costmap scorer.
+[route_server-3] [INFO] [1768922709.942399567] [route_server]: Created route operation AdjustSpeedLimit of type nav2_route::AdjustSpeedLimit
+[route_server-3] [INFO] [1768922709.942504244] [route_server]: Configuring Adjust speed limit operation.
+[route_server-3] [INFO] [1768922709.945773754] [route_server]: Created route operation ReroutingService of type nav2_route::ReroutingService
+[route_server-3] [INFO] [1768922709.945885684] [route_server]: Configuring Rerouting service operation.
+[lifecycle_manager-8] [INFO] [1768922709.957496335] [lifecycle_manager_navigation]: Configuring collision_monitor
+[collision_monitor-4] [INFO] [1768922709.959117104] [collision_monitor]: Configuring
+[collision_monitor-4] [INFO] [1768922709.985918319] [collision_monitor]: [PolygonStop]: Creating Polygon
+[collision_monitor-4] [INFO] [1768922709.996218695] [collision_monitor]: [scan]: Creating Scan
+[lifecycle_manager-8] [INFO] [1768922710.009332644] [lifecycle_manager_navigation]: Configuring planner_server
+[planner_server-5] [INFO] [1768922710.009897717] [planner_server]: Configuring
+[planner_server-5] [INFO] [1768922710.009984630] [global_costmap.global_costmap]: Configuring
+[planner_server-5] [INFO] [1768922710.031553283] [global_costmap.global_costmap]: Using plugin "static_layer"
+[planner_server-5] [INFO] [1768922710.037244519] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[planner_server-5] [INFO] [1768922710.041435081] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[planner_server-5] [INFO] [1768922710.041627173] [global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[planner_server-5] [INFO] [1768922710.042342689] [global_costmap.global_costmap]: Subscribed to Topics: scan
+[planner_server-5] [INFO] [1768922710.053836800] [global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[planner_server-5] [INFO] [1768922710.054042317] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[planner_server-5] [INFO] [1768922710.060202685] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[planner_server-5] [INFO] [1768922710.119178624] [global_costmap.global_costmap]: StaticLayer: Resizing costmap to 587 X 624 at 0.050000 m/pix
+[planner_server-5] [INFO] [1768922710.119644120] [planner_server]: Created global planner plugin GridBased of type nav2_navfn_planner/NavfnPlanner
+[planner_server-5] [INFO] [1768922710.119741553] [planner_server]: Configuring plugin GridBased of type NavfnPlanner
+[planner_server-5] [INFO] [1768922710.125605594] [planner_server]: Planner Server has GridBased  planners available.
+[lifecycle_manager-8] [INFO] [1768922710.174483647] [lifecycle_manager_navigation]: Configuring smoother_server
+[smoother_server-6] [INFO] [1768922710.175855137] [smoother_server]: Configuring smoother server
+[smoother_server-6] [INFO] [1768922710.225574394] [smoother_server]: Created smoother : simple_smoother of type nav2_smoother::SimpleSmoother
+[smoother_server-6] [INFO] [1768922710.227334775] [smoother_server]: Smoother Server has simple_smoother  smoothers available.
+[lifecycle_manager-8] [INFO] [1768922710.257453932] [lifecycle_manager_navigation]: Activating controller_server
+[controller_server-1] [INFO] [1768922710.257965534] [controller_server]: Activating
+[controller_server-1] [INFO] [1768922710.258067877] [local_costmap.local_costmap]: Activating
+[controller_server-1] [INFO] [1768922710.258096952] [local_costmap.local_costmap]: Checking transform
+[controller_server-1] [INFO] [1768922710.258735423] [local_costmap.local_costmap]: start
+[controller_server-1] [INFO] [1768922710.464154554] [controller_server]: Activating controller: FollowPath of type regulated_pure_pursuit_controller::RegulatedPurePursuitController
+[controller_server-1] [INFO] [1768922710.464328812] [controller_server]: Creating bond (controller_server) to lifecycle manager.
+[lifecycle_manager-8] [INFO] [1768922710.575352267] [lifecycle_manager_navigation]: Server controller_server connected with bond.
+[lifecycle_manager-8] [INFO] [1768922710.575482672] [lifecycle_manager_navigation]: Activating velocity_smoother
+[velocity_smoother-2] [INFO] [1768922710.576528590] [velocity_smoother]: Activating
+[velocity_smoother-2] [INFO] [1768922710.576769172] [velocity_smoother]: Creating bond (velocity_smoother) to lifecycle manager.
+[lifecycle_manager-8] [INFO] [1768922710.695790151] [lifecycle_manager_navigation]: Server velocity_smoother connected with bond.
+[lifecycle_manager-8] [INFO] [1768922710.695926307] [lifecycle_manager_navigation]: Activating route_server
+[route_server-3] [INFO] [1768922710.697019965] [route_server]: Activating
+[route_server-3] [INFO] [1768922710.697626987] [route_server]: Creating bond (route_server) to lifecycle manager.
+[lifecycle_manager-8] [INFO] [1768922710.809777361] [lifecycle_manager_navigation]: Server route_server connected with bond.
+[lifecycle_manager-8] [INFO] [1768922710.809878081] [lifecycle_manager_navigation]: Activating collision_monitor
+[collision_monitor-4] [INFO] [1768922710.810467379] [collision_monitor]: Activating
+[collision_monitor-4] [INFO] [1768922710.810693645] [collision_monitor]: Creating bond (collision_monitor) to lifecycle manager.
+[lifecycle_manager-8] [INFO] [1768922710.922993341] [lifecycle_manager_navigation]: Server collision_monitor connected with bond.
+[lifecycle_manager-8] [INFO] [1768922710.923154043] [lifecycle_manager_navigation]: Activating planner_server
+[planner_server-5] [INFO] [1768922710.924271124] [planner_server]: Activating
+[planner_server-5] [INFO] [1768922710.924429172] [global_costmap.global_costmap]: Activating
+[planner_server-5] [INFO] [1768922710.924466021] [global_costmap.global_costmap]: Checking transform
+[planner_server-5] [INFO] [1768922710.924693248] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 14.000000 but the earliest data is at time 14.795000, when looking up transform from frame [base_link] to frame [map]
+[planner_server-5] [INFO] [1768922711.424750831] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 14.200000 but the earliest data is at time 14.795000, when looking up transform from frame [base_link] to frame [map]
+[planner_server-5] [INFO] [1768922711.924738261] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 14.300000 but the earliest data is at time 14.795000, when looking up transform from frame [base_link] to frame [map]
+[planner_server-5] [INFO] [1768922712.424767750] [global_costmap.global_costmap]: Timed out waiting for transform from base_link to map to become available, tf error: Lookup would require extrapolation into the past.  Requested time 14.700000 but the earliest data is at time 14.795000, when looking up transform from frame [base_link] to frame [map]
+[planner_server-5] [INFO] [1768922712.925043854] [global_costmap.global_costmap]: start
+[planner_server-5] [INFO] [1768922713.978084404] [planner_server]: Activating plugin GridBased of type NavfnPlanner
+[planner_server-5] [INFO] [1768922713.984009350] [planner_server]: Creating bond (planner_server) to lifecycle manager.
+[lifecycle_manager-8] [INFO] [1768922714.108373189] [lifecycle_manager_navigation]: Server planner_server connected with bond.
+[lifecycle_manager-8] [INFO] [1768922714.109248646] [lifecycle_manager_navigation]: Activating smoother_server
+[smoother_server-6] [INFO] [1768922714.111579781] [smoother_server]: Activating
+[smoother_server-6] [INFO] [1768922714.111745773] [smoother_server]: Creating bond (smoother_server) to lifecycle manager.
+[lifecycle_manager-8] [INFO] [1768922714.228285444] [lifecycle_manager_navigation]: Server smoother_server connected with bond.
+[lifecycle_manager-8] [INFO] [1768922714.228570811] [lifecycle_manager_navigation]: Managed nodes are active
+[lifecycle_manager-8] [INFO] [1768922714.228618791] [lifecycle_manager_navigation]: Creating bond timer...
+[route_server-3] [INFO] [1768922742.743306645] [route_server]: Computing and tracking route to goal.
+[route_server-3] [INFO] [1768922742.745453142] [route_server]: Route found with 3 nodes and 2 edges
+[controller_server-1] [INFO] [1768922743.099635704] [controller_server]: Received a goal, begin computing control effort.
+[controller_server-1] [WARN] [1768922743.099844437] [controller_server]: No controller was specified in action call. Server will use only plugin loaded FollowPath . This warning will appear once.
+[controller_server-1] [WARN] [1768922743.099880865] [controller_server]: No goal checker was specified in parameter 'current_goal_checker'. Server will use only plugin loaded general_goal_checker . This warning will appear once.
+[route_server-3] [INFO] [1768922799.306820306] [route_server]: Routing to goal completed!
+[route_server-3] [INFO] [1768922799.335207633] [route_server]: Computing and tracking route to goal.
+[route_server-3] [INFO] [1768922799.336273929] [route_server]: Route found with 2 nodes and 1 edges
+[controller_server-1] [WARN] [1768922799.480201382] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[controller_server-1] [INFO] [1768922799.500130940] [controller_server]: Passing new path to controller.
+[route_server-3] [INFO] [1768922845.857027191] [route_server]: Routing to goal completed!
+[route_server-3] [INFO] [1768922845.879581415] [route_server]: Computing and tracking route to goal.
+[route_server-3] [INFO] [1768922845.880252718] [route_server]: Route found with 2 nodes and 1 edges
+[controller_server-1] [WARN] [1768922846.044244449] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[controller_server-1] [INFO] [1768922846.050141321] [controller_server]: Passing new path to controller.
+[route_server-3] [INFO] [1768922896.081046943] [route_server]: Routing to goal completed!
+[route_server-3] [INFO] [1768922896.108875028] [route_server]: Computing and tracking route to goal.
+[route_server-3] [INFO] [1768922896.109783998] [route_server]: Route found with 3 nodes and 2 edges
+[controller_server-1] [WARN] [1768922896.275973609] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[controller_server-1] [INFO] [1768922896.300134705] [controller_server]: Passing new path to controller.
+[route_server-3] [INFO] [1768922960.490606943] [route_server]: Routing to goal completed!
+[route_server-3] [INFO] [1768922960.517650171] [route_server]: Computing and tracking route to goal.
+[route_server-3] [INFO] [1768922960.518280566] [route_server]: Route found with 2 nodes and 1 edges
+[controller_server-1] [INFO] [1768922960.650298007] [controller_server]: Passing new path to controller.
+[controller_server-1] [INFO] [1768922960.700952706] [controller_server]: Passing new path to controller.
+[route_server-3] [INFO] [1768922987.098857268] [route_server]: Routing to goal completed!
+[route_server-3] [INFO] [1768922987.116982962] [route_server]: Computing and tracking route to goal.
+[route_server-3] [INFO] [1768922987.118385711] [route_server]: Route found with 2 nodes and 1 edges
+[controller_server-1] [INFO] [1768922987.250125878] [controller_server]: Passing new path to controller.
+[controller_server-1] [INFO] [1768922987.300210004] [controller_server]: Passing new path to controller.
+[route_server-3] [INFO] [1768923029.559435852] [route_server]: Routing to goal completed!
+[route_server-3] [INFO] [1768923029.580757958] [route_server]: Computing and tracking route to goal.
+[route_server-3] [INFO] [1768923029.581556029] [route_server]: Route found with 2 nodes and 1 edges
+[controller_server-1] [WARN] [1768923029.728959035] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[controller_server-1] [INFO] [1768923029.750214255] [controller_server]: Passing new path to controller.
+[route_server-3] [INFO] [1768923080.762298979] [route_server]: Routing to goal completed!
+[route_server-3] [INFO] [1768923080.785263874] [route_server]: Computing and tracking route to goal.
+[route_server-3] [INFO] [1768923080.787141747] [route_server]: Route found with 3 nodes and 2 edges
+[controller_server-1] [WARN] [1768923080.939513346] [controller_server]: [follow_path] [ActionServer] Aborting handle.
+[controller_server-1] [INFO] [1768923080.950109096] [controller_server]: Passing new path to controller.
+[route_server-3] [INFO] [1768923144.308512701] [route_server]: Routing to goal completed!
+[route_server-3] [INFO] [1768923144.338849943] [route_server]: Computing and tracking route to goal.
+[route_server-3] [INFO] [1768923144.341586480] [route_server]: Route found with 4 nodes and 3 edges
+[controller_server-1] [INFO] [1768923144.500099007] [controller_server]: Passing new path to controller.
+[controller_server-1] [INFO] [1768923144.550111305] [controller_server]: Passing new path to controller.
+[route_server-3] [INFO] [1768923228.743109697] [route_server]: Routing to goal completed!
+[controller_server-1] [INFO] [1768923238.150743829] [controller_server]: Reached the goal!

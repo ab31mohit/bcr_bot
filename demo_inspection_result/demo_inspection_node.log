@@ -1,0 +1,101 @@
+root@HP-360:~/ros2_ws# ros2 run bcr_bot demo_inspection.py 
+[INFO] [1768922741.809562076] [robot_route_navigator]: RobotRouteNavigator initialized
+[INFO] [1768922741.818601059] [robot_route_navigator]: Waiting for TF base_link -> map...
+[INFO] [1768922741.982875571] [robot_route_navigator]: Node sequence: 0 -> [2, 3, 4, 6] (2 loops) -> 0
+[INFO] [1768922741.984326530] [robot_route_navigator]: Executing segment: 0 → 2
+[INFO] [1768922742.739178459] [robot_route_navigator]: Executing route 0 → 2
+[INFO] [1768922742.850220747] [robot_route_navigator]: Route progress: node 0 → 0
+[INFO] [1768922742.855639811] [robot_route_navigator]: New path received
+[INFO] [1768922742.862781806] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768922759.429754055] [robot_route_navigator]: Route progress: node 1 → 2
+[INFO] [1768922799.327648555] [robot_route_navigator]: Segment result: SUCCEEDED
+[INFO] [1768922799.329706205] [robot_route_navigator]: Executing segment: 2 → 3
+[INFO] [1768922799.332416263] [robot_route_navigator]: Executing route 2 → 3
+[INFO] [1768922799.458061807] [robot_route_navigator]: Route progress: node 2 → 0
+[INFO] [1768922799.459178457] [robot_route_navigator]: New path received
+[INFO] [1768922799.460998040] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768922799.473991581] [robot_route_navigator]: Route progress: node 0 → 2
+[INFO] [1768922799.475061584] [robot_route_navigator]: New path received
+[INFO] [1768922799.476633451] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768922799.491988664] [robot_route_navigator]: Route progress: node 2 → 3
+[INFO] [1768922845.872943650] [robot_route_navigator]: Segment result: SUCCEEDED
+[INFO] [1768922845.874545162] [robot_route_navigator]: Executing segment: 3 → 4
+[INFO] [1768922845.877304463] [robot_route_navigator]: Executing route 3 → 4
+[INFO] [1768922846.017983201] [robot_route_navigator]: Route progress: node 2 → 3
+[INFO] [1768922846.019183790] [robot_route_navigator]: New path received
+[INFO] [1768922846.020842550] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768922846.037964957] [robot_route_navigator]: Route progress: node 3 → 0
+[INFO] [1768922846.039079213] [robot_route_navigator]: Route progress: node 0 → 3
+[INFO] [1768922846.039933610] [robot_route_navigator]: New path received
+[INFO] [1768922846.041467586] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768922846.058454047] [robot_route_navigator]: Route progress: node 3 → 4
+[INFO] [1768922896.102010886] [robot_route_navigator]: Segment result: SUCCEEDED
+[INFO] [1768922896.104133519] [robot_route_navigator]: Executing segment: 4 → 6
+[INFO] [1768922896.106881909] [robot_route_navigator]: Executing route 4 → 6
+[INFO] [1768922896.248127721] [robot_route_navigator]: Route progress: node 4 → 0
+[INFO] [1768922896.249530900] [robot_route_navigator]: New path received
+[INFO] [1768922896.251586898] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768922896.268636618] [robot_route_navigator]: Route progress: node 0 → 4
+[INFO] [1768922896.269942023] [robot_route_navigator]: New path received
+[INFO] [1768922896.271447786] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768922896.291966982] [robot_route_navigator]: Route progress: node 4 → 5
+[INFO] [1768922946.912863361] [robot_route_navigator]: Route progress: node 5 → 6
+[INFO] [1768922960.512149224] [robot_route_navigator]: Segment result: SUCCEEDED
+[INFO] [1768922960.513940473] [robot_route_navigator]: Executing segment: 6 → 2
+[INFO] [1768922960.515860835] [robot_route_navigator]: Executing route 6 → 2
+[INFO] [1768922960.637809556] [robot_route_navigator]: Route progress: node 6 → 0
+[INFO] [1768922960.639011677] [robot_route_navigator]: New path received
+[INFO] [1768922960.640822063] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768922960.655297260] [robot_route_navigator]: Route progress: node 0 → 6
+[INFO] [1768922960.656517395] [robot_route_navigator]: New path received
+[INFO] [1768922960.658267928] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768922960.669484736] [robot_route_navigator]: Route progress: node 6 → 2
+[INFO] [1768922987.111277350] [robot_route_navigator]: Segment result: SUCCEEDED
+[INFO] [1768922987.112868353] [robot_route_navigator]: Executing segment: 2 → 3
+[INFO] [1768922987.115013147] [robot_route_navigator]: Executing route 2 → 3
+[INFO] [1768922987.234101987] [robot_route_navigator]: Route progress: node 2 → 0
+[INFO] [1768922987.235308577] [robot_route_navigator]: New path received
+[INFO] [1768922987.237272321] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768922987.253374368] [robot_route_navigator]: Route progress: node 0 → 2
+[INFO] [1768922987.254444982] [robot_route_navigator]: New path received
+[INFO] [1768922987.256142204] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768922987.270465836] [robot_route_navigator]: Route progress: node 2 → 3
+[INFO] [1768923029.574424054] [robot_route_navigator]: Segment result: SUCCEEDED
+[INFO] [1768923029.576011240] [robot_route_navigator]: Executing segment: 3 → 4
+[INFO] [1768923029.578637760] [robot_route_navigator]: Executing route 3 → 4
+[INFO] [1768923029.700565318] [robot_route_navigator]: Route progress: node 2 → 3
+[INFO] [1768923029.702065420] [robot_route_navigator]: New path received
+[INFO] [1768923029.703986784] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768923029.721251588] [robot_route_navigator]: Route progress: node 3 → 0
+[INFO] [1768923029.722848111] [robot_route_navigator]: Route progress: node 0 → 3
+[INFO] [1768923029.723938081] [robot_route_navigator]: New path received
+[INFO] [1768923029.725579018] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768923029.743375572] [robot_route_navigator]: Route progress: node 3 → 4
+[INFO] [1768923080.780338570] [robot_route_navigator]: Segment result: SUCCEEDED
+[INFO] [1768923080.781450111] [robot_route_navigator]: Executing segment: 4 → 6
+[INFO] [1768923080.783051223] [robot_route_navigator]: Executing route 4 → 6
+[INFO] [1768923080.909702584] [robot_route_navigator]: Route progress: node 3 → 4
+[INFO] [1768923080.911120461] [robot_route_navigator]: New path received
+[INFO] [1768923080.912699571] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768923080.930498790] [robot_route_navigator]: Route progress: node 4 → 0
+[INFO] [1768923080.931821408] [robot_route_navigator]: Route progress: node 0 → 4
+[INFO] [1768923080.932856966] [robot_route_navigator]: New path received
+[INFO] [1768923080.934445113] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768923080.956979178] [robot_route_navigator]: Route progress: node 4 → 5
+[INFO] [1768923131.068253825] [robot_route_navigator]: Route progress: node 5 → 6
+[INFO] [1768923144.332922844] [robot_route_navigator]: Segment result: SUCCEEDED
+[INFO] [1768923144.334501844] [robot_route_navigator]: Executing segment: 6 → 0
+[INFO] [1768923144.336763258] [robot_route_navigator]: Executing route 6 → 0
+[INFO] [1768923144.479780520] [robot_route_navigator]: Route progress: node 5 → 6
+[INFO] [1768923144.481152661] [robot_route_navigator]: New path received
+[INFO] [1768923144.483173732] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768923144.505509434] [robot_route_navigator]: Route progress: node 6 → 0
+[INFO] [1768923144.507277008] [robot_route_navigator]: Route progress: node 0 → 6
+[INFO] [1768923144.508474671] [robot_route_navigator]: New path received
+[INFO] [1768923144.510487537] [robot_route_navigator]: Sending path to controller_server
+[INFO] [1768923144.543115006] [robot_route_navigator]: Route progress: node 6 → 2
+[INFO] [1768923180.901008473] [robot_route_navigator]: Route progress: node 2 → 1
+[INFO] [1768923228.025569056] [robot_route_navigator]: Route progress: node 1 → 0
+[INFO] [1768923228.766549414] [robot_route_navigator]: Segment result: SUCCEEDED
+[INFO] [1768923228.768089211] [robot_route_navigator]: Inspection mission completed!
+root@HP-360:~/ros2_ws# 

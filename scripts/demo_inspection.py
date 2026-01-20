@@ -79,7 +79,7 @@ def main():
 
     # ===================== USER INPUT =====================
     start_node = 0
-    loop_nodes = [3, 4, 5, 6]
+    loop_nodes = [2, 3, 4, 6]
     loop_count = 2
     return_node = 0
     # ======================================================
@@ -98,10 +98,10 @@ def main():
         )
 
         if not success:
-            navigator.get_logger().error('Inspection sequence aborted due to failure')
+            navigator.get_logger().error('Inspection sequence aborted due to failure!')
             break
 
-    navigator.get_logger().info('Inspection mission completed')
+    navigator.get_logger().info('Inspection mission completed!')
     navigator.destroy_node()
     rclpy.shutdown()
 

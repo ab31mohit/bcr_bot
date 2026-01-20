@@ -44,7 +44,7 @@ controller_server:
     controller_plugins: ["FollowPath"]
     progress_checker:
       plugin: "nav2_controller::SimpleProgressChecker"
-      required_movement_radius: 0.5
+      required_movement_radius: 0.05
       movement_time_allowance: 600.0    # 10 minutes
     #precise_goal_checker:
     #  plugin: "nav2_controller::SimpleGoalChecker"
@@ -213,14 +213,11 @@ route_server:
     radius_to_achieve_node: 2.0
     smooth_corners: true
     smoothing_radius: 0.5
-    operations: ["AdjustSpeedLimit", "ReroutingService", "CollisionMonitor"]
+    operations: ["AdjustSpeedLimit", "ReroutingService"]
     ReroutingService:
       plugin: "nav2_route::ReroutingService"
     AdjustSpeedLimit:
       plugin: "nav2_route::AdjustSpeedLimit"
-    CollisionMonitor:
-      plugin: "nav2_route::CollisionMonitor"
-      max_collision_dist: 0.5
     edge_cost_functions: ["DistanceScorer", "CostmapScorer"]
     DistanceScorer:
       plugin: "nav2_route::DistanceScorer"
@@ -232,8 +229,8 @@ collision_monitor:
     use_sim_time: True
     base_frame_id: "base_link"
     odom_frame_id: "odom"
-    cmd_vel_in_topic: "cmd_vel"    # from the controller_server/velocity_smoother
-    cmd_vel_out_topic: "cmd_vel_collision"
+    cmd_vel_in_topic: "cmd_vel_smoothed"    # from the velocity_smoother
+    cmd_vel_out_topic: "cmd_vel"
     transform_tolerance: 0.5
     source_timeout: 600.0                     # keep the collision monitor waiting
     base_shift_correction: True

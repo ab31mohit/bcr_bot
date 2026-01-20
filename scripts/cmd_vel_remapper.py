@@ -12,7 +12,7 @@ class CmdVelRemapper(Node):
         # ----------------------------
         # Declare parameters
         # ----------------------------
-        self.declare_parameter('cmd_vel_topic_in', 'cmd_vel_collision')
+        self.declare_parameter('cmd_vel_topic_in', 'cmd_vel')
         self.declare_parameter('cmd_vel_topic_out', '/bcr_bot/cmd_vel')
 
         input_topic = self.get_parameter(
