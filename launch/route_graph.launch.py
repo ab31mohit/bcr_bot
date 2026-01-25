@@ -15,7 +15,7 @@ def generate_launch_description():
         'direction',
         default_value='unidirectional',
         description='unidirectional or bidirectional'
-    )
+    )>
 
     return LaunchDescription([
         graph_file_arg,

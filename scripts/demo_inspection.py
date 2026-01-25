@@ -73,17 +73,43 @@ def main():
     rclpy.init()
     navigator = RobotRouteNavigator()
 
+    # ---------------- Declare parameters ----------------
+    navigator.declare_parameter('start_node', 0)
+    navigator.declare_parameter('loop_nodes', [2, 4, 6])
+    navigator.declare_parameter('loop_count', 2)
+    navigator.declare_parameter('return_node', 0)
+
+    # ---------------- Read parameters ----------------
+    start_node = navigator.get_parameter('start_node').value
+    loop_nodes = navigator.get_parameter('loop_nodes').value
+    loop_count = navigator.get_parameter('loop_count').value
+    return_node = navigator.get_parameter('return_node').value
+
+    # ---------------- Validate parameters ----------------
+    if not isinstance(loop_nodes, list) or len(loop_nodes) == 0:
+        navigator.get_logger().fatal(
+            'Invalid parameter: loop_nodes must be a non-empty list'
+        )
+        navigator.destroy_node()
+        rclpy.shutdown()
+        return
+
+    if not isinstance(loop_count, int) or loop_count < 1:
+        navigator.get_logger().fatal(
+            'Invalid parameter: loop_count must be >= 1'
+        )
+        navigator.destroy_node()
+        rclpy.shutdown()
+        return
+    # -----------------------------------------------------
+
+
+    # ---------------- Validate transform -----------------
     if not wait_for_transform(navigator, 'map', 'base_link'):
         rclpy.shutdown()
         return
 
-    # ===================== USER INPUT =====================
-    start_node = 0
-    loop_nodes = [2, 3, 4, 6]
-    loop_count = 2
-    return_node = 0
-    # ======================================================
-
+    # Create inspection sequence node array
     node_sequence = build_inspection_sequence(
         start_node, loop_nodes, loop_count, return_node
     )

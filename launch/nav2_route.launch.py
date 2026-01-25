@@ -23,7 +23,7 @@ def generate_launch_description():
 
     declare_graph_file_cmd = DeclareLaunchArgument(
         'graph_file',
-        default_value='bcr_demo_inspection.geojson',
+        default_value='demo_inspection.geojson',
         description='Route graph GeoJSON file'
     )
 
